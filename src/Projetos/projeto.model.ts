@@ -3,11 +3,11 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class Projeto{
     @PrimaryGeneratedColumn()
-    private id:string;
-    @Column()
-    private nomeProjeto:string;
-    @Column()    
-    private descricaoProjeto:string;
-    @Column()
-    private criadorProjeto:string; 
+    id:string;
+    @Column({type: 'varchar',length: 255})
+    nomeProjeto:string;
+    @Column({type: 'varchar', length: 500})    
+    descricaoProjeto:string;
+    @Column({type: 'varchar', length: 255})
+    criadorProjeto:string; 
 }

@@ -11,7 +11,7 @@ export class ProjetoController {
 
     @Post()
     //metodo captura o corpo da requisição, amazena em uma variavel e verifica se os dados batem com o model
-    inserirProjeto(@Body() novoProjeto: {nome:string; descricao:string; criadorProjeto:string}): Promise<Projeto> {
+    async inserirProjeto(@Body() novoProjeto: {nome:string; descricao:string; criador:string}): Promise<Projeto> {
         //uso o service e chamo o metodo inserir, inserir recebe o corpo da requisição
         return this.projetoService.inserir(novoProjeto);
     }
