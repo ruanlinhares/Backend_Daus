@@ -17,9 +17,12 @@ export class ProjetoController {
     }
 
     @Get()
-    listarProjetos(): string{
-        return "oi, aqui estão os projetosss!!";
+    async listarProjetos(): Promise<Projeto[]>{
+        return this.projetoService.buscarTodos();
     }
 
+    listarProjetoId(){}
+    alterarProjeto(){}
+    deletarProjeto(){}
     
 }

@@ -24,7 +24,7 @@ let ProjetoController = class ProjetoController {
         return this.projetoService.inserir(novoProjeto);
     }
     listarProjetos() {
-        return "oi, aqui estão os projetosss!!";
+        return this.projetoService.buscarTodos();
     }
 };
 exports.ProjetoController = ProjetoController;
@@ -39,7 +39,7 @@ __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
+    __metadata("design:returntype", Promise)
 ], ProjetoController.prototype, "listarProjetos", null);
 exports.ProjetoController = ProjetoController = __decorate([
     (0, common_1.Controller)("/projetos"),

@@ -8,5 +8,5 @@ export declare class ProjetoController {
         descricao: string;
         criador: string;
     }): Promise<Projeto>;
-    listarProjetos(): string;
+    listarProjetos(): Promise<Projeto[]>;
 }

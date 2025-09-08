@@ -25,7 +25,9 @@ let ProjetoService = class ProjetoService {
     inserir(novoProjeto) {
         return this.projetoRepository.save(novoProjeto);
     }
-    buscar() { }
+    buscarTodos() {
+        return this.projetoRepository.find();
+    }
     alterar() { }
     deletar() { }
 };

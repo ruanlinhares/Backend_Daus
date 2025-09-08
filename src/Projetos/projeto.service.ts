@@ -16,7 +16,10 @@ export class ProjetoService{
         // uso meu repository para gravar os dados recebidos no banco
         return this.projetoRepository.save(novoProjeto)
     }
-    buscar(){}
+    buscarTodos(){
+        //retorna todos as tupas do banco em formato json
+        return this.projetoRepository.find();
+    }
     alterar(){}
     deletar(){}
 }

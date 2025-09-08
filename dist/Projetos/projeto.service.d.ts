@@ -4,7 +4,7 @@ export declare class ProjetoService {
     private readonly projetoRepository;
     constructor(projetoRepository: Repository<Projeto>);
     inserir(novoProjeto: any): Promise<Projeto>;
-    buscar(): void;
+    buscarTodos(): Promise<Projeto[]>;
     alterar(): void;
     deletar(): void;
 }
