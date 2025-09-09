@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { ProjetoModule } from './Projetos/projeto.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Projeto } from './Projetos/projeto.model';
+import { UsuarioModule } from './Usuarios/usuario.module';
+import { AuthModule } from './Auth/auth.module';
 
 @Module({
   imports: [ 
@@ -16,7 +18,7 @@ import { Projeto } from './Projetos/projeto.model';
       database: 'DausDB',
       entities: [Projeto],
       synchronize: true, 
-    }), ProjetoModule],
+    }), ProjetoModule, UsuarioModule, AuthModule],
     
   controllers: [AppController],
   providers: [AppService],

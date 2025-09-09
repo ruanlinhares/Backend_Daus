@@ -1,18 +1,17 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-
-export abstract class usuario{
+@Entity()
+export class Usuario{
 
     @PrimaryGeneratedColumn()
     id:string;
-
-    @Column()
+    @Column({type: 'varchar'})
     nomeUsuario:string;
-
-    @Column()
+    @Column({type: 'varchar'})
     emailUsuario:string;
-
-    @Column()
+    @Column({type: 'varchar'})
     senhaUsuario:string;
+    @Column({type: 'varchar'})
+    roleUsuario:string;
 
 }

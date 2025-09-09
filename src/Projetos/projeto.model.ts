@@ -9,5 +9,7 @@ export class Projeto{
     @Column({type: 'varchar', length: 500})    
     descricaoProjeto:string;
     @Column({type: 'varchar', length: 255})
-    criadorProjeto:string; 
+    autorProjeto:string;
+    @Column({type: 'varchar', length: 255, default: "em_analise"})
+    statusProjeto:string; 
 }
