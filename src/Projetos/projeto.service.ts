@@ -1,26 +1,42 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Projeto } from "src/Projetos/projeto.model";
 import { Repository } from "typeorm";
+import { atualizarProjetoDTO } from "./dto/atualizarProjeto.DTO";
 
 @Injectable()
 export class ProjetoService{
     
     constructor(
         @InjectRepository(Projeto)
-        private readonly projetoRepository: Repository<Projeto>
+        private readonly projetoRepository: Repository<Projeto>,
     ){}
 
     inserir(novoProjeto) : Promise<Projeto>{
-        //corpo da requisição recebido do controller
-        // uso meu repository para gravar os dados recebidos no banco
         return this.projetoRepository.save(novoProjeto)
     }
+
     listarTodosProjetos(){
-        //retorna todos as tupas do banco em formato json
         return this.projetoRepository.find();
     }
-    alterar(){}
+
+    listarPorId(){}
+
+    alterar(projetoId:string, atualizarProjeto:atualizarProjetoDTO ): Promise<Projeto>{
+        
+        const dadosProjeto = this.projetoRepository.findOne({ where: {id:projetoId}});
+
+        if(!dadosProjeto){
+            throw new NotFoundException("Projeto não encontrado");   
+        }
+
+        //continuar lógica
+        //pegar novos dados
+        //inserir os dados no id requisitado
+        
+        return;
+    }
+
     deletar(){}
 }
 

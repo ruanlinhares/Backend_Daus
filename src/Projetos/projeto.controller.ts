@@ -1,13 +1,14 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
 import { Projeto } from "src/Projetos/projeto.model";
 import { ProjetoService } from "src/Projetos/projeto.service";
+import { atualizarProjetoDTO } from "./dto/atualizarProjeto.DTO";
 
 
 @Controller("/projetos")
 export class ProjetoController {
     
     // injetando dependecia do service
-    constructor(private readonly projetoService: ProjetoService){}
+    constructor(private readonly projetoService: ProjetoService,){}
 
     @Post("/cadastrar")
     //metodo captura o corpo da requisição, amazena em uma variavel e verifica se os dados batem com o model
@@ -22,7 +23,13 @@ export class ProjetoController {
     }
 
     listarProjetoId(){}
-    alterarProjeto(){}
+    
+    @Patch(":Id")
+    alterarProjeto(@Param("Id") projetoId:string, @Body() alterarProjetoDTO: atualizarProjetoDTO,): Promise<Projeto>{
+        return this.projetoService.alterar(projetoId, alterarProjetoDTO);
+    }
+    
+    @Post("/deletar")
     deletarProjeto(){}
     
 }
