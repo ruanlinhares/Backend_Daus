@@ -10,6 +10,9 @@ export class Projeto{
     descricaoProjeto:string;
     @Column({type: 'varchar', length: 255})
     autorProjeto:string;
+    @Column({type: 'float'})
+    valorProjeto:number;
     @Column({type: 'varchar', length: 255, default: "em_analise"})
     statusProjeto:string; 
+    
 }

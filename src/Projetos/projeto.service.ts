@@ -20,9 +20,11 @@ export class ProjetoService{
         return this.projetoRepository.find();
     }
 
-    listarPorId(){}
+    listarPorId(projetoId:string): Promise<Projeto>{
+        return this.projetoRepository.findOne({where: {id: projetoId}});
+    }
 
-    alterar(projetoId:string, atualizarProjeto:atualizarProjetoDTO ): Promise<Projeto>{
+    async alterar(projetoId:string, atualizarProjeto:atualizarProjetoDTO ): Promise<Projeto>{
         
         const dadosProjeto = this.projetoRepository.findOne({ where: {id:projetoId}});
 
@@ -34,10 +36,12 @@ export class ProjetoService{
         //pegar novos dados
         //inserir os dados no id requisitado
         
-        return;
     }
 
-    deletar(){}
+    async deletarProjeto(projetoId:string): Promise<void>{
+        await this.projetoRepository.delete(projetoId);
+        //melhorar
+    }
 }
 
 

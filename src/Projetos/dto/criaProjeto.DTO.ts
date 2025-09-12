@@ -1,6 +1,6 @@
-import { IsString } from "class-validator";
+import { IsNumber, IsString } from "class-validator";
 
-export class CriarProjetosDTO{
+export class CriarProjetoDTO{
 
     @IsString()
     Id:string;
@@ -13,6 +13,9 @@ export class CriarProjetosDTO{
 
     @IsString()
     autorProjeto:string;
+
+    @IsNumber()
+    valorProjeto:number;
 
     @IsString()
     statusPRojeto:string;
