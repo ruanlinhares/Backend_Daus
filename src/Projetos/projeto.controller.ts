@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
 import { Projeto } from "src/Projetos/projeto.model";
 import { ProjetoService } from "src/Projetos/projeto.service";
 import { atualizarProjetoDTO } from "./dto/atualizarProjeto.DTO";
 import { CriarProjetoDTO } from "./dto/criaProjeto.DTO";
+import { ListarProjeto } from "./dto/listarProjeto.DTO";
 
 
 @Controller("/projetos")
@@ -13,29 +14,29 @@ export class ProjetoController {
 
     @Post("/cadastrar")
     //metodo captura o corpo da requisição, amazena em uma variavel e verifica se os dados batem com o model
-    async inserirProjeto(@Body() novoProjeto: CriarProjetoDTO): Promise<Projeto> {
+    async inserir(@Body() dto: CriarProjetoDTO): Promise<Projeto> {
         //uso o service e chamo o metodo inserir, inserir recebe o corpo da requisição
-        return this.projetoService.inserir(novoProjeto);
+        return this.projetoService.inserirProjeto(dto);
     }
 
     @Get("/listar")
-    async listarTodosProjetos(): Promise<Projeto[]>{
+    async listarTodos(): Promise<Projeto[]>{
         return this.projetoService.listarTodosProjetos();
     }
 
-    @Post("/listar-id")
-    listarId(projetoId:string): Promise<Projeto>{
+    @Get(":id")
+    listarId(@Param("id") projetoId:string): Promise<Projeto>{
         return this.projetoService.listarPorId(projetoId);
     }
     
-    @Patch(":Id")
-    alterar(@Param("Id") projetoId:string, @Body() alterarProjetoDTO: atualizarProjetoDTO,): Promise<Projeto>{
+    @Patch(":id")
+    alterar(@Param("id") projetoId:string, @Body() alterarProjetoDTO: atualizarProjetoDTO,): Promise<Projeto>{
         return this.projetoService.alterar(projetoId, alterarProjetoDTO);
     }
     
-    @Post("/deletar")
-    async deletar(projetoId:string): Promise<void>{
-        await this.projetoService.deletarProjeto(projetoId);
+    @Delete(":id")
+    deletar(@Param("id")Id:string){
+       return this.projetoService.deletarProjeto(Id);
     }
     
 }

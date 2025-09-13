@@ -3,6 +3,8 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Projeto } from "src/Projetos/projeto.model";
 import { Repository } from "typeorm";
 import { atualizarProjetoDTO } from "./dto/atualizarProjeto.DTO";
+import { ListarProjeto } from "./dto/listarProjeto.DTO";
+import { CriarProjetoDTO } from "./dto/criaProjeto.DTO";
 
 @Injectable()
 export class ProjetoService{
@@ -12,35 +14,41 @@ export class ProjetoService{
         private readonly projetoRepository: Repository<Projeto>,
     ){}
 
-    inserir(novoProjeto) : Promise<Projeto>{
-        return this.projetoRepository.save(novoProjeto)
+    async inserirProjeto(dto:CriarProjetoDTO) : Promise<Projeto>{
+        return await this.projetoRepository.save(dto)
     }
 
-    listarTodosProjetos(){
+    listarTodosProjetos() : Promise<Projeto[]>{
         return this.projetoRepository.find();
     }
 
-    listarPorId(projetoId:string): Promise<Projeto>{
-        return this.projetoRepository.findOne({where: {id: projetoId}});
+    async listarPorId(projetoId:string): Promise<Projeto>{
+        const projetoListado = await this.projetoRepository.findOne({where: {id: projetoId}});
+        
+        if(!projetoListado){
+            throw new NotFoundException("Projeto não encontrado");
+        }
+
+        return projetoListado;
     }
 
     async alterar(projetoId:string, atualizarProjeto:atualizarProjetoDTO ): Promise<Projeto>{
         
-        const dadosProjeto = this.projetoRepository.findOne({ where: {id:projetoId}});
+        const projetoListado = await this.projetoRepository.findOne({ where: {id:projetoId}});
 
-        if(!dadosProjeto){
+        if(!projetoListado){
             throw new NotFoundException("Projeto não encontrado");   
         }
 
-        //continuar lógica
-        //pegar novos dados
-        //inserir os dados no id requisitado
+        return atualizarProjeto; //erro, fazer lógica de atualizar projeto.
         
     }
 
     async deletarProjeto(projetoId:string): Promise<void>{
-        await this.projetoRepository.delete(projetoId);
-        //melhorar
+
+        //posso fazer uma verificação
+
+        const projetoDeletado = await this.projetoRepository.delete(projetoId);
     }
 }
 
