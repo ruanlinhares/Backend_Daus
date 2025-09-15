@@ -1,10 +1,9 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
-import { Projeto } from "src/Projetos/projeto.model";
 import { ProjetoService } from "src/Projetos/projeto.service";
 import { atualizarProjetoDTO } from "./dto/atualizarProjeto.DTO";
-import { CriarProjetoDTO } from "./dto/criaProjeto.DTO";
-import { ListarProjeto } from "./dto/listarProjeto.DTO";
-
+import { CriarProjetoDTO } from "./dto/criarProjeto.DTO";
+import { plainToInstance } from "class-transformer";
+import { ListarProjetoDTO } from "./dto/listarProjeto.DTO";
 
 @Controller("/projetos")
 export class ProjetoController {
@@ -13,30 +12,35 @@ export class ProjetoController {
     constructor(private readonly projetoService: ProjetoService,){}
 
     @Post("/cadastrar")
-    //metodo captura o corpo da requisição, amazena em uma variavel e verifica se os dados batem com o model
-    async inserir(@Body() dto: CriarProjetoDTO): Promise<Projeto> {
+    //metodo captura o corpo da requisição, amazena em um DTO
+    inserir(@Body() dto: CriarProjetoDTO){
         //uso o service e chamo o metodo inserir, inserir recebe o corpo da requisição
-        return this.projetoService.inserirProjeto(dto);
+        const projeto = this.projetoService.inserirProjeto(dto);
+        //retorno do banco somente os campos necessarios presentes do Dto
+        return plainToInstance(ListarProjetoDTO,projeto);
     }
 
     @Get("/listar")
-    async listarTodos(): Promise<Projeto[]>{
-        return this.projetoService.listarTodosProjetos();
-    }
+    async listarTodos(): Promise<ListarProjetoDTO[]>{
+        const projetos = await this.projetoService.listarTodosProjetos();
+        return plainToInstance(ListarProjetoDTO, projetos);
+    }   
 
     @Get(":id")
-    listarId(@Param("id") projetoId:string): Promise<Projeto>{
-        return this.projetoService.listarPorId(projetoId);
+    async listarId(@Param("id") projetoId:string): Promise<ListarProjetoDTO>{
+        const projeto =  await this.projetoService.listarPorId(projetoId);
+        return plainToInstance(ListarProjetoDTO, projeto)
     }
     
     @Patch(":id")
-    alterar(@Param("id") projetoId:string, @Body() alterarProjetoDTO: atualizarProjetoDTO,): Promise<Projeto>{
-        return this.projetoService.alterar(projetoId, alterarProjetoDTO);
+    async atualizar(@Param("id") projetoId:string, @Body() dto: atualizarProjetoDTO,): Promise<ListarProjetoDTO>{
+        const projeto = await this.projetoService.atualizarProjeto(projetoId, dto);
+        return plainToInstance(ListarProjetoDTO, projeto);
     }
     
     @Delete(":id")
-    deletar(@Param("id")Id:string){
-       return this.projetoService.deletarProjeto(Id);
+    async deletar(@Param("id")Id:string) : Promise<string>{
+       return await this.projetoService.deletarProjeto(Id);
     }
     
 }

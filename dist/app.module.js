@@ -13,6 +13,9 @@ const app_service_1 = require("./app.service");
 const projeto_module_1 = require("./Projetos/projeto.module");
 const typeorm_1 = require("@nestjs/typeorm");
 const projeto_model_1 = require("./Projetos/projeto.model");
+const usuario_module_1 = require("./Usuarios/usuario.module");
+const auth_module_1 = require("./Auth/auth.module");
+const usuario_model_1 = require("./Usuarios/usuario.model");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -26,9 +29,9 @@ exports.AppModule = AppModule = __decorate([
                 username: 'root',
                 password: 'root',
                 database: 'DausDB',
-                entities: [projeto_model_1.Projeto],
+                entities: [projeto_model_1.Projeto, usuario_model_1.Usuario],
                 synchronize: true,
-            }), projeto_module_1.ProjetoModule
+            }), projeto_module_1.ProjetoModule, usuario_module_1.UsuarioModule, auth_module_1.AuthModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

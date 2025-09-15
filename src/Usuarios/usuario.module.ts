@@ -6,7 +6,7 @@ import { Usuario } from "./usuario.model";
 import { AuthModule } from "src/Auth/auth.module";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Usuario]), AuthModule],
+    imports: [TypeOrmModule.forFeature([Usuario])],
     controllers: [UsuarioController],
     providers: [UsuarioService]
 })

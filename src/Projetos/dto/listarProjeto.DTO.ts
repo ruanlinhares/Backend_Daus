@@ -1,5 +1,13 @@
-import { CriarProjetoDTO } from "./criaProjeto.DTO";
+import { Exclude, Expose } from "class-transformer";
 
-export class ListarProjeto extends CriarProjetoDTO{
-
+@Exclude()//remove todos os campos que não tem expose
+export class ListarProjetoDTO{
+    @Expose()
+    nomeProjeto:string;
+    @Expose()
+    descricaoProjeto:string;
+    @Expose()
+    valorProjeto:string;
+    @Expose()
+    autorProjeto:string;
 }

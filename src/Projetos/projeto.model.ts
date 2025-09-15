@@ -8,7 +8,7 @@ export class Projeto{
     nomeProjeto:string;
     @Column({type: 'varchar', length: 500})    
     descricaoProjeto:string;
-    @Column({type: 'varchar', length: 255})
+    @Column({type: 'varchar', length: 255, default: "admin"})
     autorProjeto:string;
     @Column({type: 'float'})
     valorProjeto:number;

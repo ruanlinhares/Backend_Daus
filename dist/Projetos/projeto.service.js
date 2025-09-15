@@ -22,14 +22,32 @@ let ProjetoService = class ProjetoService {
     constructor(projetoRepository) {
         this.projetoRepository = projetoRepository;
     }
-    inserir(novoProjeto) {
-        return this.projetoRepository.save(novoProjeto);
+    async inserirProjeto(dto) {
+        const projeto = this.projetoRepository.create(dto);
+        return await this.projetoRepository.save(projeto);
     }
-    buscarTodos() {
-        return this.projetoRepository.find();
+    async listarTodosProjetos() {
+        return await this.projetoRepository.find();
     }
-    alterar() { }
-    deletar() { }
+    async listarPorId(projetoId) {
+        const projeto = await this.projetoRepository.findOne({ where: { id: projetoId } });
+        if (!projeto) {
+            throw new common_1.NotFoundException("Projeto não encontrado");
+        }
+        return projeto;
+    }
+    async atualizarProjeto(projetoId, dto) {
+        const projeto = await this.projetoRepository.findOne({ where: { id: projetoId } });
+        if (!projeto) {
+            throw new common_1.NotFoundException("Projeto não encontrado");
+        }
+        Object.assign(projeto, dto);
+        return await this.projetoRepository.save(projeto);
+    }
+    async deletarProjeto(projetoId) {
+        const projetoDeletado = await this.projetoRepository.delete(projetoId);
+        return "Projeto deletado";
+    }
 };
 exports.ProjetoService = ProjetoService;
 exports.ProjetoService = ProjetoService = __decorate([

@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Projeto } from './Projetos/projeto.model';
 import { UsuarioModule } from './Usuarios/usuario.module';
 import { AuthModule } from './Auth/auth.module';
+import { Usuario } from './Usuarios/usuario.model';
 
 @Module({
   imports: [ 
@@ -16,9 +17,9 @@ import { AuthModule } from './Auth/auth.module';
       username: 'root',
       password: 'root',
       database: 'DausDB',
-      entities: [Projeto],
+      entities: [Projeto, Usuario],
       synchronize: true, 
-    }), ProjetoModule, UsuarioModule, AuthModule],
+    }), ProjetoModule, UsuarioModule, AuthModule,],
     
   controllers: [AppController],
   providers: [AppService],

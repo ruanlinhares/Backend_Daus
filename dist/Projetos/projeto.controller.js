@@ -15,32 +15,71 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProjetoController = void 0;
 const common_1 = require("@nestjs/common");
 const projeto_service_1 = require("./projeto.service");
+const atualizarProjeto_DTO_1 = require("./dto/atualizarProjeto.DTO");
+const criarProjeto_DTO_1 = require("./dto/criarProjeto.DTO");
+const class_transformer_1 = require("class-transformer");
+const listarProjeto_DTO_1 = require("./dto/listarProjeto.DTO");
 let ProjetoController = class ProjetoController {
     projetoService;
     constructor(projetoService) {
         this.projetoService = projetoService;
     }
-    async inserirProjeto(novoProjeto) {
-        return this.projetoService.inserir(novoProjeto);
+    inserir(dto) {
+        const projeto = this.projetoService.inserirProjeto(dto);
+        return (0, class_transformer_1.plainToInstance)(listarProjeto_DTO_1.ListarProjetoDTO, projeto);
     }
-    listarProjetos() {
-        return this.projetoService.buscarTodos();
+    async listarTodos() {
+        const projetos = await this.projetoService.listarTodosProjetos();
+        return (0, class_transformer_1.plainToInstance)(listarProjeto_DTO_1.ListarProjetoDTO, projetos);
+    }
+    async listarId(projetoId) {
+        const projeto = await this.projetoService.listarPorId(projetoId);
+        return (0, class_transformer_1.plainToInstance)(listarProjeto_DTO_1.ListarProjetoDTO, projeto);
+    }
+    async atualizar(projetoId, dto) {
+        const projeto = await this.projetoService.atualizarProjeto(projetoId, dto);
+        return (0, class_transformer_1.plainToInstance)(listarProjeto_DTO_1.ListarProjetoDTO, projeto);
+    }
+    async deletar(Id) {
+        return await this.projetoService.deletarProjeto(Id);
     }
 };
 exports.ProjetoController = ProjetoController;
 __decorate([
-    (0, common_1.Post)(),
+    (0, common_1.Post)("/cadastrar"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], ProjetoController.prototype, "inserirProjeto", null);
+    __metadata("design:paramtypes", [criarProjeto_DTO_1.CriarProjetoDTO]),
+    __metadata("design:returntype", void 0)
+], ProjetoController.prototype, "inserir", null);
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_1.Get)("/listar"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], ProjetoController.prototype, "listarProjetos", null);
+], ProjetoController.prototype, "listarTodos", null);
+__decorate([
+    (0, common_1.Get)(":id"),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ProjetoController.prototype, "listarId", null);
+__decorate([
+    (0, common_1.Patch)(":id"),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, atualizarProjeto_DTO_1.atualizarProjetoDTO]),
+    __metadata("design:returntype", Promise)
+], ProjetoController.prototype, "atualizar", null);
+__decorate([
+    (0, common_1.Delete)(":id"),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ProjetoController.prototype, "deletar", null);
 exports.ProjetoController = ProjetoController = __decorate([
     (0, common_1.Controller)("/projetos"),
     __metadata("design:paramtypes", [projeto_service_1.ProjetoService])

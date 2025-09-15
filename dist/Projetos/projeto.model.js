@@ -15,7 +15,9 @@ let Projeto = class Projeto {
     id;
     nomeProjeto;
     descricaoProjeto;
-    criadorProjeto;
+    autorProjeto;
+    valorProjeto;
+    statusProjeto;
 };
 exports.Projeto = Projeto;
 __decorate([
@@ -31,9 +33,17 @@ __decorate([
     __metadata("design:type", String)
 ], Projeto.prototype, "descricaoProjeto", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar', length: 255 }),
+    (0, typeorm_1.Column)({ type: 'varchar', length: 255, default: "admin" }),
     __metadata("design:type", String)
-], Projeto.prototype, "criadorProjeto", void 0);
+], Projeto.prototype, "autorProjeto", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'float' }),
+    __metadata("design:type", Number)
+], Projeto.prototype, "valorProjeto", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'varchar', length: 255, default: "em_analise" }),
+    __metadata("design:type", String)
+], Projeto.prototype, "statusProjeto", void 0);
 exports.Projeto = Projeto = __decorate([
     (0, typeorm_1.Entity)()
 ], Projeto);
