@@ -9,20 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthService = void 0;
-const common_1 = require("@nestjs/common");
-const usuario_service_1 = require("../Usuarios/usuario.service");
-let AuthService = class AuthService {
-    usuarioService;
-    constructor(usuarioService) {
-        this.usuarioService = usuarioService;
-    }
-    validarCadastro(dto) { }
-    validarLogin() { }
-};
-exports.AuthService = AuthService;
-exports.AuthService = AuthService = __decorate([
-    (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [usuario_service_1.UsuarioService])
-], AuthService);
-//# sourceMappingURL=auth.service.js.map
+exports.CriarUsuarioDTO = void 0;
+const class_validator_1 = require("class-validator");
+class CriarUsuarioDTO {
+    nomeUsuario;
+    emailUsuario;
+    senhaUsuario;
+}
+exports.CriarUsuarioDTO = CriarUsuarioDTO;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CriarUsuarioDTO.prototype, "nomeUsuario", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CriarUsuarioDTO.prototype, "emailUsuario", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CriarUsuarioDTO.prototype, "senhaUsuario", void 0);
+//# sourceMappingURL=criarUsuario.DTO.js.map

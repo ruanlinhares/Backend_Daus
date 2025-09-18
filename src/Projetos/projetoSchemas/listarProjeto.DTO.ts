@@ -1,6 +1,6 @@
 import { Exclude, Expose } from "class-transformer";
 
-@Exclude()//remove todos os campos que não tem expose
+@Exclude()//remove todos os campos que não são expose
 export class ListarProjetoDTO{
     @Expose()
     nomeProjeto:string;

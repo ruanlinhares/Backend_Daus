@@ -15,10 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProjetoController = void 0;
 const common_1 = require("@nestjs/common");
 const projeto_service_1 = require("./projeto.service");
-const atualizarProjeto_DTO_1 = require("./dto/atualizarProjeto.DTO");
-const criarProjeto_DTO_1 = require("./dto/criarProjeto.DTO");
+const atualizarProjeto_DTO_1 = require("./projetoSchemas/atualizarProjeto.DTO");
+const criarProjeto_DTO_1 = require("./projetoSchemas/criarProjeto.DTO");
 const class_transformer_1 = require("class-transformer");
-const listarProjeto_DTO_1 = require("./dto/listarProjeto.DTO");
+const listarProjeto_DTO_1 = require("./projetoSchemas/listarProjeto.DTO");
 let ProjetoController = class ProjetoController {
     projetoService;
     constructor(projetoService) {
@@ -46,7 +46,7 @@ let ProjetoController = class ProjetoController {
 };
 exports.ProjetoController = ProjetoController;
 __decorate([
-    (0, common_1.Post)("/cadastrar"),
+    (0, common_1.Post)("/inserir"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [criarProjeto_DTO_1.CriarProjetoDTO]),

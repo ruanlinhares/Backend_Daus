@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
 import { ProjetoService } from "src/Projetos/projeto.service";
-import { atualizarProjetoDTO } from "./dto/atualizarProjeto.DTO";
-import { CriarProjetoDTO } from "./dto/criarProjeto.DTO";
+import { atualizarProjetoDTO } from "./projetoSchemas/atualizarProjeto.DTO";
+import { CriarProjetoDTO } from "./projetoSchemas/criarProjeto.DTO";
 import { plainToInstance } from "class-transformer";
-import { ListarProjetoDTO } from "./dto/listarProjeto.DTO";
+import { ListarProjetoDTO } from "./projetoSchemas/listarProjeto.DTO";
 
 @Controller("/projetos")
 export class ProjetoController {
@@ -11,7 +11,7 @@ export class ProjetoController {
     // injetando dependecia do service
     constructor(private readonly projetoService: ProjetoService,){}
 
-    @Post("/cadastrar")
+    @Post("/inserir")
     //metodo captura o corpo da requisição, amazena em um DTO
     inserir(@Body() dto: CriarProjetoDTO){
         //uso o service e chamo o metodo inserir, inserir recebe o corpo da requisição

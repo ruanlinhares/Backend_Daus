@@ -1,7 +1,7 @@
 import { Projeto } from "src/Projetos/projeto.model";
 import { Repository } from "typeorm";
-import { atualizarProjetoDTO } from "./dto/atualizarProjeto.DTO";
-import { CriarProjetoDTO } from "./dto/criarProjeto.DTO";
+import { atualizarProjetoDTO } from "./projetoSchemas/atualizarProjeto.DTO";
+import { CriarProjetoDTO } from "./projetoSchemas/criarProjeto.DTO";
 export declare class ProjetoService {
     private readonly projetoRepository;
     constructor(projetoRepository: Repository<Projeto>);

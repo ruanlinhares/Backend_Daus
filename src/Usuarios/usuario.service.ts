@@ -1,7 +1,9 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Usuario } from "./usuario.model";
 import { Repository } from "typeorm";
+import { CriarUsuarioDTO } from "./usuarioSchemas/criarUsuario.DTO";
+import { AtualizarUsuarioDTO } from "./usuarioSchemas/atualizarUsuario.DTO";
 
 
 @Injectable()
@@ -15,6 +17,41 @@ export class UsuarioService{
     ){}
 
 
-    inserirUsuario(){}
-    listarTodosUsuarios(){}
+    async inserirUsuario(dto: CriarUsuarioDTO): Promise<Usuario>{
+        const usuario = await this.usuarioRepository.create(dto);
+        return await this.usuarioRepository.save(usuario);
+    }
+
+    async listarTodosUsuarios(): Promise<Usuario[]>{
+        return await this.usuarioRepository.find();
+    }
+
+    async listarUsuarioId(usuarioId:string): Promise<Usuario>{
+        const usuario = await this.usuarioRepository.findOne({where:{id:usuarioId}});
+
+        if(!usuario){
+            throw new NotFoundException("Usuario não encontrado");
+        }
+
+        return await usuario;
+    }
+
+    async atualizarUsuario(usuarioId:string, dto:AtualizarUsuarioDTO): Promise<Usuario>{
+        
+        const usuario = await this.listarUsuarioId(usuarioId);
+
+        Object.assign(usuario, dto);
+
+        return await this.usuarioRepository.save(usuario);
+    }
+
+
+    async deletarUsuario(usuarioId:string) : Promise<string>{
+
+        const usuario = await this.listarUsuarioId(usuarioId);
+
+        await this.usuarioRepository.delete(usuario);
+        
+        return "Usuário deletado do sistema";
+    }
 }

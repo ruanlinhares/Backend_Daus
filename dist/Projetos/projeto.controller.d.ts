@@ -1,7 +1,7 @@
 import { ProjetoService } from "src/Projetos/projeto.service";
-import { atualizarProjetoDTO } from "./dto/atualizarProjeto.DTO";
-import { CriarProjetoDTO } from "./dto/criarProjeto.DTO";
-import { ListarProjetoDTO } from "./dto/listarProjeto.DTO";
+import { atualizarProjetoDTO } from "./projetoSchemas/atualizarProjeto.DTO";
+import { CriarProjetoDTO } from "./projetoSchemas/criarProjeto.DTO";
+import { ListarProjetoDTO } from "./projetoSchemas/listarProjeto.DTO";
 export declare class ProjetoController {
     private readonly projetoService;
     constructor(projetoService: ProjetoService);

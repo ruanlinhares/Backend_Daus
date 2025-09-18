@@ -22,8 +22,30 @@ let UsuarioService = class UsuarioService {
     constructor(usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
-    inserirUsuario() { }
-    listarTodosUsuarios() { }
+    async inserirUsuario(dto) {
+        const usuario = await this.usuarioRepository.create(dto);
+        return await this.usuarioRepository.save(usuario);
+    }
+    async listarTodosUsuarios() {
+        return await this.usuarioRepository.find();
+    }
+    async listarUsuarioId(usuarioId) {
+        const usuario = await this.usuarioRepository.findOne({ where: { id: usuarioId } });
+        if (!usuario) {
+            throw new common_1.NotFoundException("Usuario não encontrado");
+        }
+        return await usuario;
+    }
+    async atualizarUsuario(usuarioId, dto) {
+        const usuario = await this.listarUsuarioId(usuarioId);
+        Object.assign(usuario, dto);
+        return await this.usuarioRepository.save(usuario);
+    }
+    async deletarUsuario(usuarioId) {
+        const usuario = await this.listarUsuarioId(usuarioId);
+        await this.usuarioRepository.delete(usuario);
+        return "Usuário deletado do sistema";
+    }
 };
 exports.UsuarioService = UsuarioService;
 exports.UsuarioService = UsuarioService = __decorate([

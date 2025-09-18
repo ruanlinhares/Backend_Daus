@@ -9,34 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CriarUsuarioDTO = void 0;
-const class_validator_1 = require("class-validator");
-class CriarUsuarioDTO {
-    id;
+exports.ListarUsuarioDTO = void 0;
+const class_transformer_1 = require("class-transformer");
+let ListarUsuarioDTO = class ListarUsuarioDTO {
     nomeUsuario;
     emailUsuario;
-    senhaUsuario;
-    roleUsuario;
-}
-exports.CriarUsuarioDTO = CriarUsuarioDTO;
+};
+exports.ListarUsuarioDTO = ListarUsuarioDTO;
 __decorate([
-    (0, class_validator_1.IsString)(),
+    (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
-], CriarUsuarioDTO.prototype, "id", void 0);
+], ListarUsuarioDTO.prototype, "nomeUsuario", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
+    (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
-], CriarUsuarioDTO.prototype, "nomeUsuario", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CriarUsuarioDTO.prototype, "emailUsuario", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CriarUsuarioDTO.prototype, "senhaUsuario", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CriarUsuarioDTO.prototype, "roleUsuario", void 0);
-//# sourceMappingURL=criarUsuario.DTO.js.map
+], ListarUsuarioDTO.prototype, "emailUsuario", void 0);
+exports.ListarUsuarioDTO = ListarUsuarioDTO = __decorate([
+    (0, class_transformer_1.Exclude)()
+], ListarUsuarioDTO);
+//# sourceMappingURL=listarUsuario.DTO.js.map

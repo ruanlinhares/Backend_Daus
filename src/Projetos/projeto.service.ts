@@ -2,8 +2,8 @@ import { HttpException, HttpStatus, Injectable, NotFoundException } from "@nestj
 import { InjectRepository } from "@nestjs/typeorm";
 import { Projeto } from "src/Projetos/projeto.model";
 import { Repository } from "typeorm";
-import { atualizarProjetoDTO } from "./dto/atualizarProjeto.DTO";
-import { CriarProjetoDTO } from "./dto/criarProjeto.DTO";
+import { atualizarProjetoDTO } from "./projetoSchemas/atualizarProjeto.DTO";
+import { CriarProjetoDTO } from "./projetoSchemas/criarProjeto.DTO";
 
 @Injectable()
 export class ProjetoService{
