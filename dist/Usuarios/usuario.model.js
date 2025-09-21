@@ -28,7 +28,7 @@ __decorate([
     __metadata("design:type", String)
 ], Usuario.prototype, "nomeUsuario", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar' }),
+    (0, typeorm_1.Column)({ type: 'varchar', unique: true }),
     __metadata("design:type", String)
 ], Usuario.prototype, "emailUsuario", void 0);
 __decorate([
@@ -36,7 +36,7 @@ __decorate([
     __metadata("design:type", String)
 ], Usuario.prototype, "senhaUsuario", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar', default: 'common_user' }),
+    (0, typeorm_1.Column)({ type: 'varchar', default: 'user' }),
     __metadata("design:type", String)
 ], Usuario.prototype, "roleUsuario", void 0);
 exports.Usuario = Usuario = __decorate([

@@ -8,7 +8,7 @@ import { Projeto } from "./projeto.model";
     imports:[TypeOrmModule.forFeature([Projeto])],
     controllers:[ProjetoController],
     providers:[ProjetoService],
-    exports:[]
+    exports:[ProjetoService]
 })
 
 export class ProjetoModule{}

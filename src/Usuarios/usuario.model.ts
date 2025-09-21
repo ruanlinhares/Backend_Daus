@@ -7,11 +7,11 @@ export class Usuario{
     id:string;
     @Column({type: 'varchar'})
     nomeUsuario:string;
-    @Column({type: 'varchar'})
+    @Column({type: 'varchar', unique: true})
     emailUsuario:string;
     @Column({type: 'varchar'})
     senhaUsuario:string;
-    @Column({type: 'varchar', default: 'common_user'})
+    @Column({type: 'varchar', default: 'user'})
     roleUsuario:string;
 
 }

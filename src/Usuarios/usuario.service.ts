@@ -4,7 +4,7 @@ import { Usuario } from "./usuario.model";
 import { Repository } from "typeorm";
 import { CriarUsuarioDTO } from "./usuarioSchemas/criarUsuario.DTO";
 import { AtualizarUsuarioDTO } from "./usuarioSchemas/atualizarUsuario.DTO";
-
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsuarioService{
@@ -18,7 +18,16 @@ export class UsuarioService{
 
 
     async inserirUsuario(dto: CriarUsuarioDTO): Promise<Usuario>{
-        const usuario = await this.usuarioRepository.create(dto);
+        
+        const hashSenha = await  bcrypt.hash(dto.senhaUsuario,10);
+        
+        const usuario = await this.usuarioRepository.create({
+            //spraed operator, espalha todas as propriedadesa de um método
+            ...dto,
+            senhaUsuario: hashSenha,
+        });
+
+
         return await this.usuarioRepository.save(usuario);
     }
 

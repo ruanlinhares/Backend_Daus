@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ProjetoModule } from './Projetos/projeto.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Projeto } from './Projetos/projeto.model';
 import { UsuarioModule } from './Usuarios/usuario.module';
 import { AuthModule } from './Auth/auth.module';
 import { Usuario } from './Usuarios/usuario.model';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [ 
@@ -19,9 +18,14 @@ import { Usuario } from './Usuarios/usuario.model';
       database: 'DausDB',
       entities: [Projeto, Usuario],
       synchronize: true, 
-    }), ProjetoModule, UsuarioModule, AuthModule,],
+    }), 
     
-  controllers: [AppController],
-  providers: [AppService],
+      ConfigModule.forRoot({
+        isGlobal: true,
+      }),
+    ProjetoModule, UsuarioModule, AuthModule,],
+    
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

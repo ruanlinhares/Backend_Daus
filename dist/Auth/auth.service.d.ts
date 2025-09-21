@@ -1,8 +1,16 @@
+import { JwtService } from "@nestjs/jwt";
 import { UsuarioService } from "src/Usuarios/usuario.service";
-import { CadastroDTO } from "./authSchemas/cadastro.DTO";
+import { CriarUsuarioDTO } from "src/Usuarios/usuarioSchemas/criarUsuario.DTO";
+import { LoginDTO } from "./authSchemas/login.DTO";
+import { Usuario } from "src/Usuarios/usuario.model";
+import { ListarUsuarioDTO } from "src/Usuarios/usuarioSchemas/listarUsuario.DTO";
 export declare class AuthService {
     private readonly usuarioService;
-    constructor(usuarioService: UsuarioService);
-    validarCadastro(dto: CadastroDTO): void;
-    validarLogin(): void;
+    private readonly jwtService;
+    constructor(usuarioService: UsuarioService, jwtService: JwtService);
+    cadastro(dto: CriarUsuarioDTO): Promise<Usuario>;
+    validarUsuario(dto: LoginDTO): Promise<Usuario>;
+    login(dto: ListarUsuarioDTO): Promise<{
+        access_token: string;
+    }>;
 }
