@@ -1,10 +1,14 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
 import { ProjetoService } from "src/Projetos/projeto.service";
 import { atualizarProjetoDTO } from "./projetoSchemas/atualizarProjeto.DTO";
 import { CriarProjetoDTO } from "./projetoSchemas/criarProjeto.DTO";
 import { plainToInstance } from "class-transformer";
 import { ListarProjetoDTO } from "./projetoSchemas/listarProjeto.DTO";
+import { JwtAuhtGuard } from "src/Auth/authGuards/jwt-auth.guard";
+import { RolesGuard } from "src/Auth/authGuards/roles.guard";
+import { Roles } from "src/Auth/authDecorators/roles.decorator";
 
+@UseGuards(JwtAuhtGuard, RolesGuard) // fazer a logica das roles classificar as requisições
 @Controller("/projetos")
 export class ProjetoController {
     

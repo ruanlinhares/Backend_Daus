@@ -1,0 +1,3 @@
+[1004/112018.262:ERROR:third_party\crashpad\crashpad\util\win\registration_protocol_win.cc:108] CreateFile: O sistema não pode encontrar o arquivo especificado. (0x2)
+[1004/112020.845:ERROR:third_party\crashpad\crashpad\util\win\registration_protocol_win.cc:108] CreateFile: O sistema não pode encontrar o arquivo especificado. (0x2)
+[1004/112326.852:ERROR:third_party\crashpad\crashpad\client\crashpad_client_win.cc:869] not connected

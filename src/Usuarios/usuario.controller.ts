@@ -1,10 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
 import { UsuarioService } from "./usuario.service";
 import { CriarUsuarioDTO } from "./usuarioSchemas/criarUsuario.DTO";
 import { plainToInstance } from "class-transformer";
 import { ListarUsuarioDTO } from "./usuarioSchemas/listarUsuario.DTO";
 import { AtualizarUsuarioDTO } from "./usuarioSchemas/atualizarUsuario.DTO";
+import { JwtAuhtGuard } from "src/Auth/authGuards/jwt-auth.guard";
+import { RolesGuard } from "src/Auth/authGuards/roles.guard";
 
+@UseGuards(JwtAuhtGuard, RolesGuard) // fazer a logica das roles classificar as requisições
 @Controller("/usuarios")
 export class UsuarioController{
     

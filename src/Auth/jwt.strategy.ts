@@ -9,9 +9,11 @@ export class JwtStrategy extends PassportStrategy(Strategy){
     
     constructor(config:ConfigService){
         const secret = config.get<string>('JWT_SECRET');
+        
         if (!secret) {
             throw new Error('JWT_SECRET não definido no .env');
         }
+        
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             ignoreExpiration: false,
@@ -20,6 +22,6 @@ export class JwtStrategy extends PassportStrategy(Strategy){
     }
 
     async validate(payload: JwtPayload){
-        return {username: payload.username, email: payload.email}
+        return {sub: payload.id, username: payload.username, role: payload.role,}
     }
 }
