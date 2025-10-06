@@ -11,9 +11,6 @@ import { ConfigService } from "@nestjs/config";
 @Module({
     imports:[PassportModule,
         JwtModule.registerAsync({
-            /*chave secreta, será utilizada "CHAVE_SECRETA"
-            no caso de nao existir arquivo uma chave no arquivo .env
-            não commitar essa chave*/
             inject:[ConfigService], 
             useFactory: (config: ConfigService) => ({
                 secret: config.get<string>('JWT_SECRET'),

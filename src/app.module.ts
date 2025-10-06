@@ -21,6 +21,7 @@ import { ConfigModule } from '@nestjs/config';
     }), 
     
       ConfigModule.forRoot({
+        envFilePath: ['.env', '.env.local', '.env.example'],
         isGlobal: true,
       }),
     ProjetoModule, UsuarioModule, AuthModule,],

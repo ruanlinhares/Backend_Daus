@@ -8,41 +8,43 @@ import { JwtAuhtGuard } from "src/Auth/authGuards/jwt-auth.guard";
 import { RolesGuard } from "src/Auth/authGuards/roles.guard";
 import { Roles } from "src/Auth/authDecorators/roles.decorator";
 
-@UseGuards(JwtAuhtGuard, RolesGuard) // fazer a logica das roles classificar as requisições
+@UseGuards(JwtAuhtGuard, RolesGuard)
 @Controller("/projetos")
 export class ProjetoController {
     
-    // injetando dependecia do service
+    
     constructor(private readonly projetoService: ProjetoService,){}
 
     @Post("/inserir")
-    //metodo captura o corpo da requisição, amazena em um DTO
+    @Roles('admin', 'user')
     inserir(@Body() dto: CriarProjetoDTO){
-        //uso o service e chamo o metodo inserir, inserir recebe o corpo da requisição
         const projeto = this.projetoService.inserirProjeto(dto);
-        //retorno do banco somente os campos necessarios presentes do Dto
         return plainToInstance(ListarProjetoDTO,projeto);
     }
 
     @Get("/listar")
+    @Roles('admin', 'user')
     async listarTodos(): Promise<ListarProjetoDTO[]>{
         const projetos = await this.projetoService.listarTodosProjetos();
         return plainToInstance(ListarProjetoDTO, projetos);
     }   
 
     @Get(":id")
+    @Roles('admin', 'user')
     async listarId(@Param("id") projetoId:string): Promise<ListarProjetoDTO>{
         const projeto =  await this.projetoService.listarPorId(projetoId);
         return plainToInstance(ListarProjetoDTO, projeto)
     }
     
     @Patch(":id")
+    @Roles('admin', 'user')
     async atualizar(@Param("id") projetoId:string, @Body() dto: atualizarProjetoDTO,): Promise<ListarProjetoDTO>{
         const projeto = await this.projetoService.atualizarProjeto(projetoId, dto);
         return plainToInstance(ListarProjetoDTO, projeto);
     }
     
     @Delete(":id")
+    @Roles('admin', 'user')
     async deletar(@Param("id")Id:string) : Promise<string>{
        return await this.projetoService.deletarProjeto(Id);
     }
