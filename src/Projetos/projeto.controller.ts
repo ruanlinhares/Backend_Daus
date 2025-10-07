@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from "@nestjs/common";
 import { ProjetoService } from "src/Projetos/projeto.service";
 import { atualizarProjetoDTO } from "./projetoSchemas/atualizarProjeto.DTO";
 import { CriarProjetoDTO } from "./projetoSchemas/criarProjeto.DTO";
@@ -17,8 +17,11 @@ export class ProjetoController {
 
     @Post("/inserir")
     @Roles('admin', 'user')
-    inserir(@Body() dto: CriarProjetoDTO){
-        const projeto = this.projetoService.inserirProjeto(dto);
+    inserir(@Req() req, @Body() dto: CriarProjetoDTO){
+        
+        const userId = req.user.sub;
+
+        const projeto = this.projetoService.inserirProjeto(userId, dto);
         return plainToInstance(ListarProjetoDTO,projeto);
     }
 
@@ -45,8 +48,9 @@ export class ProjetoController {
     
     @Delete(":id")
     @Roles('admin', 'user')
-    async deletar(@Param("id")Id:string) : Promise<string>{
-       return await this.projetoService.deletarProjeto(Id);
+    async deletar(@Param("id")id:string) : Promise<string>{
+       
+       return await this.projetoService.deletarProjeto(id);
     }
     
 }

@@ -8,17 +8,17 @@ import { JwtAuhtGuard } from "src/Auth/authGuards/jwt-auth.guard";
 import { RolesGuard } from "src/Auth/authGuards/roles.guard";
 import { Roles } from "src/Auth/authDecorators/roles.decorator";
 
-@UseGuards(JwtAuhtGuard, RolesGuard) // fazer a logica das roles classificar as requisições
+@UseGuards(JwtAuhtGuard, RolesGuard) 
 @Controller("/usuarios")
 export class UsuarioController{
     
     constructor(private readonly usuarioService:UsuarioService,){}
 
     @Post("/inserir")
-    @Roles('admin', 'user')
+    @Roles('admin')
     async inserir(@Body() dto:CriarUsuarioDTO): Promise<ListarUsuarioDTO>{
         const projeto = await this.usuarioService.inserirUsuario(dto);
-        return plainToInstance(ListarUsuarioDTO,dto);
+        return plainToInstance(ListarUsuarioDTO,projeto);
     }
 
     @Get("/listar")
@@ -29,7 +29,7 @@ export class UsuarioController{
     }
 
     @Get(":id")
-    @Roles('admin', 'user')
+    @Roles('admin')
     async listaId(@Param("id") usuarioId:string): Promise<ListarUsuarioDTO>{
         const projeto = await this.usuarioService.listarUsuarioId(usuarioId);
 
@@ -37,7 +37,7 @@ export class UsuarioController{
     }
     
     @Patch(":id")
-    @Roles('admin', 'user')
+    @Roles('admin')
     async atualizar(@Param("id") usuarioId:string, @Body() dto:AtualizarUsuarioDTO): Promise<ListarUsuarioDTO>{
 
         const usuarioAtualizado = await this.usuarioService.atualizarUsuario(usuarioId,dto);
@@ -47,7 +47,7 @@ export class UsuarioController{
     
     
     @Delete(":id")
-    @Roles('admin', 'user')
+    @Roles('admin')
     async deletar(@Param("id") usuarioId:string) : Promise<string>{
         return await this.usuarioService.deletarUsuario(usuarioId);
     }

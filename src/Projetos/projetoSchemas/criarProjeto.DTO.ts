@@ -7,7 +7,7 @@ export class CriarProjetoDTO{
 
     @IsString()
     descricaoProjeto:string;
-
+    
     @IsNumber()
     valorProjeto:number;
 

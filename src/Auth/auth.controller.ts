@@ -4,6 +4,7 @@ import { CriarUsuarioDTO } from "src/Usuarios/usuarioSchemas/criarUsuario.DTO";
 import { LoginDTO } from "./authSchemas/login.DTO";
 import { plainToInstance } from "class-transformer";
 import { ListarUsuarioDTO } from "src/Usuarios/usuarioSchemas/listarUsuario.DTO";
+import { JwtPayload } from "./authSchemas/jwtPayload.DTO";
 
 
 @Controller("/auth")
@@ -19,11 +20,11 @@ export class AuthController{
 
     @Post("/login")
     async login(@Body() dto: LoginDTO) {
-        const usuario = await this.authService.validarUsuario(dto)
+        const usuario = await this.authService.validarUsuario(dto);
         
-        const usuarioRefactor = plainToInstance(ListarUsuarioDTO, usuario)
+        const usuarioRefactor = await plainToInstance(ListarUsuarioDTO, usuario);
         
-        return this.authService.login(usuarioRefactor);
+        return this.authService.generateToken(usuarioRefactor);
     }
 
 }

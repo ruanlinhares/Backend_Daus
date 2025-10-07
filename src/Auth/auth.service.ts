@@ -5,8 +5,8 @@ import { CriarUsuarioDTO } from "src/Usuarios/usuarioSchemas/criarUsuario.DTO";
 import { LoginDTO } from "./authSchemas/login.DTO";
 import { Usuario } from "src/Usuarios/usuario.model";
 import { ListarUsuarioDTO } from "src/Usuarios/usuarioSchemas/listarUsuario.DTO";
-import { plainToInstance } from "class-transformer";
 import * as bcrypt from 'bcrypt';
+import { JwtPayload } from "./authSchemas/jwtPayload.DTO";
 
 @Injectable()
 export class AuthService{
@@ -50,9 +50,11 @@ export class AuthService{
         return usuario
     }
 
-    async login(dto: ListarUsuarioDTO){
-        const payload = {username: dto.nomeUsuario, email: dto.emailUsuario};
+    async generateToken(dto: ListarUsuarioDTO){
+        const payload = {sub: dto.id, username: dto.nomeUsuario, role: dto.roleUsuario};
 
-        return {access_token: this.jwtService.sign(payload)};
+        return {
+            access_token: this.jwtService.sign(payload),
+        }
     }
 }
