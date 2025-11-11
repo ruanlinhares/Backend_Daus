@@ -12,7 +12,7 @@ export class AuthController{
 
     constructor( private readonly authService : AuthService){}
 
-    @Post("/cadastro")
+    @Post("/register")
     async cadastro(@Body() dto: CriarUsuarioDTO) : Promise<ListarUsuarioDTO>{
         const usuario = await this.authService.cadastro(dto);
         return plainToInstance(ListarUsuarioDTO, usuario);
