@@ -53,8 +53,7 @@ export class AuthService{
     async generateToken(dto: ListarUsuarioDTO){
         const payload = {sub: dto.id, username: dto.nomeUsuario, role: dto.roleUsuario};
 
-        return {
-            access_token: this.jwtService.sign(payload),
-        }
+        return this.jwtService.sign(payload)
+        
     }
 }

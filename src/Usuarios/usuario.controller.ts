@@ -7,12 +7,18 @@ import { AtualizarUsuarioDTO } from "./usuarioSchemas/atualizarUsuario.DTO";
 import { JwtAuhtGuard } from "src/Auth/authGuards/jwt-auth.guard";
 import { RolesGuard } from "src/Auth/authGuards/roles.guard";
 import { Roles } from "src/Auth/authDecorators/roles.decorator";
+import { Projeto } from "src/Projetos/projeto.model";
+import { ListarProjetoDTO } from "src/Projetos/projetoSchemas/listarProjeto.DTO";
+import { ProjetoService } from "src/Projetos/projeto.service";
+
 
 @UseGuards(JwtAuhtGuard, RolesGuard) 
 @Controller("/usuarios")
 export class UsuarioController{
     
-    constructor(private readonly usuarioService:UsuarioService,){}
+    constructor(private readonly usuarioService:UsuarioService,
+        private readonly projetoService:ProjetoService
+    ){}
 
     @Post("/inserir")
     @Roles('admin')
@@ -50,5 +56,14 @@ export class UsuarioController{
     @Roles('admin')
     async deletar(@Param("id") usuarioId:string) : Promise<string>{
         return await this.usuarioService.deletarUsuario(usuarioId);
+    }
+
+    @Get("listarProjetos/:id")
+    @Roles('admin', 'user')
+    async ProjetosUsuario(@Param("id") usuarioId:string): Promise<ListarProjetoDTO[]>{
+        
+        const projetosUsuario = await this.projetoService.listarPorAutor(usuarioId);
+        
+        return plainToInstance(ListarProjetoDTO, projetosUsuario);
     }
 }

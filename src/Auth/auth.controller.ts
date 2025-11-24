@@ -18,13 +18,15 @@ export class AuthController{
         return plainToInstance(ListarUsuarioDTO, usuario);
     }
 
-    @Post("/login")
+    @Post("/login") //mudar o retorno para receber token e dados do usuario.
     async login(@Body() dto: LoginDTO) {
         const usuario = await this.authService.validarUsuario(dto);
         
         const usuarioRefactor = await plainToInstance(ListarUsuarioDTO, usuario);
         
-        return this.authService.generateToken(usuarioRefactor);
+        const access_token = await this.authService.generateToken(usuarioRefactor)
+        
+        return {...usuarioRefactor, access_token};
     }
 
 }

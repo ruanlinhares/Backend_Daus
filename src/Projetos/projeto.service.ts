@@ -52,6 +52,14 @@ export class ProjetoService{
 
         return "Projeto deletado";
     }
+
+    async listarPorAutor(autorId:string): Promise<Projeto[]>{ 
+
+        const projetos = await this.projetoRepository.find({where: { autorProjeto: autorId }});
+
+        return projetos;
+
+    }
 }
 
 
