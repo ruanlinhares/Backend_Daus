@@ -8,5 +8,7 @@ export class CriarUsuarioDTO{
     emailUsuario:string;
     @IsString()
     senhaUsuario:string;
+    @IsString()
+    roleUsuario:string;
 
 }
