@@ -6,6 +6,7 @@ import { UsuarioModule } from './Usuarios/usuario.module';
 import { AuthModule } from './Auth/auth.module';
 import { Usuario } from './Usuarios/usuario.model';
 import { ConfigModule } from '@nestjs/config';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [ 
