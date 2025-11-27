@@ -28,7 +28,7 @@ export class UsuarioController{
     }
 
     @Get("/listar")
-    @Roles('admin', 'user')
+    @Roles('admin', 'criador', 'investidor')
     async listar(): Promise<ListarUsuarioDTO[]>{
         const projeto = await this.usuarioService.listarTodosUsuarios();
         return plainToInstance(ListarUsuarioDTO, projeto);
@@ -59,7 +59,7 @@ export class UsuarioController{
     }
 
     @Get("listarProjetos/:id")
-    @Roles('admin', 'user')
+    @Roles('admin', 'criador')
     async ProjetosUsuario(@Param("id") usuarioId:string): Promise<ListarProjetoDTO[]>{
         
         const projetosUsuario = await this.projetoService.listarPorAutor(usuarioId);

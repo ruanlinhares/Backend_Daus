@@ -13,9 +13,9 @@ export class ProjetoService{
         private readonly projetoRepository: Repository<Projeto>,
     ){}
 
-    async inserirProjeto(userId:string ,dto:CriarProjetoDTO) : Promise<Projeto>{
+    async inserirProjeto(dto:CriarProjetoDTO) : Promise<Projeto>{
         
-        const projeto = await this.projetoRepository.create({...dto,  autorProjeto: userId});
+        const projeto = await this.projetoRepository.create({...dto});
         return await this.projetoRepository.save(projeto)
     }
 
