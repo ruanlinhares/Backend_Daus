@@ -10,6 +10,7 @@ import { AprovarProjeto } from "./adminActions/aprovarProjeto.DTO";
 @Controller('admin')
 export class adminController{
     constructor (private readonly adminService: AdminService){}
+    
     @Roles('admin', 'superadmin')
     @Put('projeto/:id/status')
     async aprovarOuNegarProjeto(
