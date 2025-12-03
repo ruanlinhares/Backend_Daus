@@ -11,4 +11,7 @@ export class CriarProjetoDTO{
     @IsNumber()
     valorProjeto:number;
 
+    @IsString()
+    autorProjeto:string;
+
 }

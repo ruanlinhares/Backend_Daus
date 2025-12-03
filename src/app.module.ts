@@ -25,7 +25,7 @@ import { AdminModule } from './admin/admin.module';
         envFilePath: ['.env', '.env.local', '.env.example'],
         isGlobal: true,
       }),
-    ProjetoModule, UsuarioModule, AuthModule,],
+    ProjetoModule, UsuarioModule, AuthModule, AdminModule],
     
   controllers: [],
   providers: [],

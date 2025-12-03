@@ -13,9 +13,9 @@ export class ProjetoService{
         private readonly projetoRepository: Repository<Projeto>,
     ){}
 
-    async inserirProjeto(userId:string ,dto:CriarProjetoDTO) : Promise<Projeto>{
+    async inserirProjeto(dto:CriarProjetoDTO) : Promise<Projeto>{
         
-        const projeto = await this.projetoRepository.create({...dto,  autorProjeto: userId});
+        const projeto = await this.projetoRepository.create({...dto});
         return await this.projetoRepository.save(projeto)
     }
 
@@ -53,9 +53,26 @@ export class ProjetoService{
         return "Projeto deletado";
     }
 
-    async listarPorAutor(autorId:string): Promise<Projeto[]>{ 
+    async listarPorAutor(autorName:string): Promise<Projeto[]>{ 
 
-        const projetos = await this.projetoRepository.find({where: { autorProjeto: autorId }});
+        const projetos = await this.projetoRepository.find({where: { autorProjeto: autorName }});
+
+        return projetos;
+
+    }
+
+    async listarEmAnalise(): Promise<Projeto[]>{ 
+
+        const projetos = await this.projetoRepository.find({where: { statusProjeto: "em_analise" }});
+
+        return projetos;
+
+    }
+
+
+    async listarAprovados(): Promise<Projeto[]>{ 
+
+        const projetos = await this.projetoRepository.find({where: { statusProjeto: "aprovado" }});
 
         return projetos;
 

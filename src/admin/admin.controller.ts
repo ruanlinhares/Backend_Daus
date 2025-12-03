@@ -7,8 +7,9 @@ import { AlterarNivelDeAcesso, NivelAcesso } from "./adminActions/alterarNivelDe
 import { AprovarProjeto } from "./adminActions/aprovarProjeto.DTO";
 
 @UseGuards(JwtAuhtGuard, RolesGuard)
-@Controller('admin')
+@Controller('/admin')
 export class adminController{
+    
     constructor (private readonly adminService: AdminService){}
     
     @Roles('admin', 'superadmin')
@@ -18,11 +19,11 @@ export class adminController{
         @Body() dto: AprovarProjeto,
         @Request() req: any
     ){
-        return await this.adminService.aprovarOuNegarProjeto(projetoId, dto, req.user);
+        return await this.adminService.updateStatusProject(projetoId, dto, req.user);
     }
 
     @Roles('superadmin')
-    @Put('usuario/:id/nivel-acesso')
+    @Put('/usuario/:id/nivel-acesso')
     async alterarNivelAcesso(
         @Param('id') usuarioId: string,
         @Body() dto: AlterarNivelDeAcesso,
