@@ -45,6 +45,17 @@ export class UsuarioService{
         return await usuario;
     }
 
+
+    async listarUsuarioNome(usuarioNome:string): Promise<Usuario>{
+        const usuario = await this.usuarioRepository.findOne({where:{nomeUsuario:usuarioNome}});
+
+        if(!usuario){
+            throw new NotFoundException("Usuario não encontrado");
+        }
+
+        return await usuario;
+    }
+
     async atualizarUsuario(usuarioId:string, dto:AtualizarUsuarioDTO): Promise<Usuario>{
         
         const usuario = await this.listarUsuarioId(usuarioId);

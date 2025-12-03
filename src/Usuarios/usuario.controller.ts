@@ -60,10 +60,18 @@ export class UsuarioController{
 
     @Get("listarProjetos/:id")
     @Roles('admin', 'criador')
-    async ProjetosUsuario(@Param("id") usuarioId:string): Promise<ListarProjetoDTO[]>{
+    async ProjetosUsuario(@Param("id") usuarioName:string): Promise<ListarProjetoDTO[]>{
         
-        const projetosUsuario = await this.projetoService.listarPorAutor(usuarioId);
+        const projetosUsuario = await this.projetoService.listarPorAutor(usuarioName);
         
         return plainToInstance(ListarProjetoDTO, projetosUsuario);
+    }
+
+    @Get("/listarPorNome/:id")
+    @Roles('admin', 'criador', 'investidor')
+    async listaPorNome(@Param("id") usuarioName:string): Promise<ListarUsuarioDTO>{
+        const projeto = await this.usuarioService.listarUsuarioNome(usuarioName);
+
+        return plainToInstance(ListarUsuarioDTO, projeto);
     }
 }

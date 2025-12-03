@@ -29,7 +29,7 @@ export class ProjetoController {
         return plainToInstance(ListarProjetoDTO, projetos);
     }   
 
-    @Get(":id")
+    @Get("/listar/:id")
     @Roles('admin', 'criador', 'investidor')
     async listarId(@Param("id") projetoId:string): Promise<ListarProjetoDTO>{
         const projeto =  await this.projetoService.listarPorId(projetoId);
@@ -48,6 +48,24 @@ export class ProjetoController {
     async deletar(@Param("id")id:string) : Promise<string>{
        
        return await this.projetoService.deletarProjeto(id);
+    }
+
+    @Get("/listarEmAnalise")
+    @Roles('superadmin','admin')
+    async ProjetosEmAnalise(): Promise<ListarProjetoDTO[]>{
+        
+        const projetosUsuario = await this.projetoService.listarEmAnalise();
+        
+        return plainToInstance(ListarProjetoDTO, projetosUsuario);
+    }
+
+    @Get("/listarAprovados")
+    @Roles('superadmin','admin', 'criador', 'investidor')
+    async ProjetosAprovados(): Promise<ListarProjetoDTO[]>{
+        
+        const projetosUsuario = await this.projetoService.listarAprovados();
+        
+        return plainToInstance(ListarProjetoDTO, projetosUsuario);
     }
     
 }

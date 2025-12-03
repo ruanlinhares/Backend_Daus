@@ -8,6 +8,6 @@ export enum StatusProjeto {
 
 export class AprovarProjeto {
     @IsNotEmpty()
-    @IsEnum(StatusProjeto, {message: 'Status deve ser: aprovado, reprovado ou em_analise'})
+    @IsEnum(StatusProjeto)
     status: StatusProjeto;
 }
