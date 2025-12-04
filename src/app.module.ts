@@ -12,6 +12,7 @@ import { AdminModule } from './admin/admin.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
+      url: "postgresql://daus_db_user:4z6IyXFL6izVebJR6ebPPtrMDaP5taXJ@dpg-d4odm0re5dus73c66chg-a/daus_db" + '?sslmode=require',
       host: 'dpg-d4odm0re5dus73c66chg-a',
       port: 5432,
       username: 'daus_db_user',
@@ -21,7 +22,7 @@ import { AdminModule } from './admin/admin.module';
       synchronize: true,
       autoLoadEntities: true,
       ssl: {
-        rejectUnauthorized: true,
+        rejectUnauthorized: false,
       },
     }),
 
