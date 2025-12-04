@@ -9,25 +9,29 @@ import { ConfigModule } from '@nestjs/config';
 import { AdminModule } from './admin/admin.module';
 
 @Module({
-  imports: [ 
-      TypeOrmModule.forRoot({
-      type: 'mariadb', 
-      host: 'localhost',
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'mysql.railway.internal',
       port: 3306,
       username: 'root',
-      password: 'root',
-      database: 'DausDB',
+      password: 'KIrwuaEIUZnFulXxmZSyMOjqqkIdgifI',
+      database: 'railway',
       entities: [Projeto, Usuario],
-      synchronize: true, 
-    }), 
-    
-      ConfigModule.forRoot({
-        envFilePath: ['.env', '.env.local', '.env.example'],
-        isGlobal: true,
-      }),
+      synchronize: true,
+      autoLoadEntities: true,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    }),
+
+    ConfigModule.forRoot({
+      envFilePath: ['.env', '.env.local', '.env.example'],
+      isGlobal: true,
+    }),
     ProjetoModule, UsuarioModule, AuthModule, AdminModule],
-    
+
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
