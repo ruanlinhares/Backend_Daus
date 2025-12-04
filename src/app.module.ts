@@ -11,12 +11,12 @@ import { AdminModule } from './admin/admin.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'crossover.proxy.rlwy.net',
-      port: 3306,
-      username: 'root',
-      password: 'KIrwuaEIUZnFulXxmZSyMOjqqkIdgifI',
-      database: 'railway',
+      type: 'postgres',
+      host: 'dpg-d4odm0re5dus73c66chg-a',
+      port: 5432,
+      username: 'daus_db_user',
+      password: '4z6IyXFL6izVebJR6ebPPtrMDaP5taXJ',
+      database: 'daus_db',
       entities: [Projeto, Usuario],
       synchronize: true,
       autoLoadEntities: true,
