@@ -12,7 +12,7 @@ import { AdminModule } from './admin/admin.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'mysql.railway.internal',
+      host: 'crossover.proxy.rlwy.net',
       port: 3306,
       username: 'root',
       password: 'KIrwuaEIUZnFulXxmZSyMOjqqkIdgifI',
