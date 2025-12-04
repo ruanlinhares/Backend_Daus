@@ -21,7 +21,7 @@ import { AdminModule } from './admin/admin.module';
       synchronize: true,
       autoLoadEntities: true,
       ssl: {
-        rejectUnauthorized: false,
+        rejectUnauthorized: true,
       },
     }),
 
